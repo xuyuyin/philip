@@ -32,9 +32,7 @@ var IsIPhoneX = isIos && (screen.height == 812 && screen.width == 375);
 				'images/p2t3.png',
 				'images/p2t4.png',
 				'images/p2title.png',
-				'images/logo.png',
-				'images/openinbrowser_ios.png',
-				'images/openinbrowser_android.png'
+				'images/logo.png'
 			],
 			onStart : function(total){
 				$(".sec1").css('display', 'none');
@@ -203,6 +201,16 @@ var IsIPhoneX = isIos && (screen.height == 812 && screen.width == 375);
 			$.fn.fullpage.setAllowScrolling(true);
 		})
 
+		$(".tmtxt").on('tap', function(){
+			philips.analytics.trackConversion ({
+                name:"buy_at_others",
+                shopname:"Tmall",                   
+          		products:"diamondclean_smart;hx9924:54" 
+			})
+			t.push("XXYH");
+			window.location.href = "http://h5.m.taobao.com/awp/core/detail.htm?id=561710128904";
+		})
+
 		$('.jdtxt').on('tap', function(){
 			philips.analytics.trackConversion ({
                 name:"buy_at_others",
@@ -221,28 +229,8 @@ var IsIPhoneX = isIos && (screen.height == 812 && screen.width == 375);
 		})
 
 		if (mobileUtil.isWeixin) {
-			if (mobileUtil.isAndroid) {
-				$('.openTM').css('background-image', 'url(./images/openinbrowser_android.png)');
-			}
 			$('.tmtxt').on('tap', function(){
-				$('.openTM').removeClass('hide');
-				$.fn.fullpage.setKeyboardScrolling(false);
-				$.fn.fullpage.setAllowScrolling(false);
-			})
-			$('.goBack').on('tap', function(){
-				$('.openTM').addClass('hide');
-				$.fn.fullpage.setKeyboardScrolling(true);
-				$.fn.fullpage.setAllowScrolling(true);
-			})
-		} else {
-			$(".tmtxt").on('tap', function(){
-				philips.analytics.trackConversion ({
-					name:"buy_at_others",
-					shopname:"Tmall",                   
-					  products:"diamondclean_smart;hx9924:54" 
-				})
-				t.push("XXYH");
-				window.location.href = "http://h5.m.taobao.com/awp/core/detail.htm?id=561710128904";
+				window.location.href = './o.html'
 			})
 		}
 		
