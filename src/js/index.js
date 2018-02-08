@@ -32,13 +32,14 @@ var IsIPhoneX = isIos && (screen.height == 812 && screen.width == 375);
 				'images/p2t3.png',
 				'images/p2t4.png',
 				'images/p2title.png',
-				'images/logo.png'
+				'images/logo.png',
+				'images/openinbrowser_ios.png',
+				'images/openinbrowser_android.png'
 			],
 			onStart : function(total){
 				$(".sec1").css('display', 'none');
 				$(".sec2").css('display', 'none');
 				$(".dot").css('display', 'none');
-				$(".xijun3").addClass('hide');	
 			},
 			onProgress : function(current, total){
 				if (current == 1) {
@@ -122,6 +123,7 @@ var IsIPhoneX = isIos && (screen.height == 812 && screen.width == 375);
 										$('.xijun2').addClass('animated slideInLeft').removeClass('hide');
 									}, 1700);
 									setTimeout(() => {
+										$(".xijun3").css('display', 'block');	
 										$('.xijun3').addClass('animated slideInRight').removeClass('hide');
 									}, 1800);
 									setTimeout(() => {
@@ -201,16 +203,6 @@ var IsIPhoneX = isIos && (screen.height == 812 && screen.width == 375);
 			$.fn.fullpage.setAllowScrolling(true);
 		})
 
-		$(".tmtxt").on('tap', function(){
-			philips.analytics.trackConversion ({
-                name:"buy_at_others",
-                shopname:"Tmall",                   
-          		products:"diamondclean_smart;hx9924:54" 
-			})
-			t.push("XXYH");
-			window.location.href = "http://h5.m.taobao.com/awp/core/detail.htm?id=561710128904";
-		})
-
 		$('.jdtxt').on('tap', function(){
 			philips.analytics.trackConversion ({
                 name:"buy_at_others",
@@ -227,5 +219,32 @@ var IsIPhoneX = isIos && (screen.height == 812 && screen.width == 375);
 		$('.arrow').on('tap', function(){
 			$.fn.fullpage.moveTo("sec2");
 		})
+
+		if (mobileUtil.isWeixin) {
+			if (mobileUtil.isAndroid) {
+				$('.openTM').css('background-image', 'url(./images/openinbrowser_android.png)');
+			}
+			$('.tmtxt').on('tap', function(){
+				$('.openTM').removeClass('hide');
+				$.fn.fullpage.setKeyboardScrolling(false);
+				$.fn.fullpage.setAllowScrolling(false);
+			})
+			$('.goBack').on('tap', function(){
+				$('.openTM').addClass('hide');
+				$.fn.fullpage.setKeyboardScrolling(true);
+				$.fn.fullpage.setAllowScrolling(true);
+			})
+		} else {
+			$(".tmtxt").on('tap', function(){
+				philips.analytics.trackConversion ({
+					name:"buy_at_others",
+					shopname:"Tmall",                   
+					  products:"diamondclean_smart;hx9924:54" 
+				})
+				t.push("XXYH");
+				window.location.href = "http://h5.m.taobao.com/awp/core/detail.htm?id=561710128904";
+			})
+		}
+		
 	});
 })(window, document, $);
